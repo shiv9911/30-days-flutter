@@ -13,12 +13,25 @@ class itemWidgets extends StatelessWidget {
         onTap: () {
           print("Item ${item.name} pressed.");
         },
-        leading: Image.network(item.image),
+        leading: Image.network(
+          item.image,
+          fit: BoxFit.cover,
+          errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+            // Appropriate logging or analytics, e.g.
+            // myAnalytics.recordError(
+            //   'An error occurred loading "https://example.does.not.exist/image.jpg"',
+            //   exception,
+            //   stackTrace,
+            // );
+            return const Text('ð¢');
+          },
+        ),
         title: Text(item.name),
         subtitle: Text(item.desc),
         trailing: Text("\$${item.price}",
             textScaleFactor: 1.5,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.deepPurple, fontWeight: FontWeight.bold)),
       ),
     );

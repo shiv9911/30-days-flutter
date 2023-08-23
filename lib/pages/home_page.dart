@@ -22,28 +22,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
+    // await Future.delayed(Duration(seconds: 5));
+
     final catelogJson =
         await rootBundle.loadString("assets/files/catalog.json");
     final decondeData = jsonDecode(catelogJson);
     var productData = decondeData["products"];
+
+    CatelogModel.items =
+        List.from(productData).map<Item>((item) => Item.fromMap(item)).toList();
+    // await Future.delayed(Duration(seconds: 10));
+    setState(() {});
+
     // print(productData);
   }
 
   @override
   Widget build(BuildContext context) {
     int days = 2;
-    final dummyList = List.generate(50, (index) => CatelogModel.items[0]);
+    // final dummyList = List.generate(50, (index) => CatelogModel.items[0]);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Catelog App"),
+        title: const Text("Catelog App"),
       ),
-      body: ListView.builder(
-        itemCount: dummyList.length,
-        itemBuilder: (context, index) {
-          return itemWidgets(item: dummyList[index]);
-        },
-      ),
-      drawer: myDrawer(),
+      body: (CatelogModel.items.isNotEmpty)
+          ? ListView.builder(
+              itemCount: CatelogModel.items.length,
+              itemBuilder: (context, index) {
+                return itemWidgets(item: CatelogModel.items[index]);
+              },
+            )
+          : const Center(child: CircularProgressIndicator()),
+      drawer: const myDrawer(),
     );
   }
 }

@@ -6,13 +6,13 @@ class myDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imgUrl = "https://dart.dev/assets/shared/dart-logo-for-shares.png?2";
+    const imgUrl = "https://dart.dev/assets/shared/dart-logo-for-shares.png?2";
 
     return Drawer(
       child: Container(
         color: Colors.deepPurple,
         child: ListView(
-          children: [
+          children: const [
             DrawerHeader(
                 padding: EdgeInsets.zero,
                 child: UserAccountsDrawerHeader(
